@@ -1,183 +1,184 @@
 "use client";
 
 import * as React from 'react';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ChevronDown, Code, Sparkles, X } from 'lucide-react';
+import { Menu, Briefcase, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
-const mainNavLinks = [
-  { href: '#home', label: 'Home', icon: '🏠' },
-  { href: '#about', label: 'About', icon: '👨‍💻' },
-  { href: '#experience', label: 'Experience', icon: '💼' },
-  { href: '#skills', label: 'Skills', icon: '⚡' },
-  { href: '#projects', label: 'Projects', icon: '🚀' },
-  { href: '#freelance', label: 'Freelance', icon: '💎' },
+const navLinks = [
+  { href: '#home', label: 'Home' },
+  { href: '#about', label: 'About' },
+  { href: '#education', label: 'Education' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#interests', label: 'Interests' },
+  { href: '#data-analysis', label: 'Data Analysis' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' },
 ];
-
-const moreNavLinks = [
-  { href: '#education', label: 'Education', icon: '🎓' },
-  { href: '#achievements', label: 'Achievements', icon: '🏆' },
-  { href: '#certificates', label: 'Certificates', icon: '📜' },
-  { href: '#volunteering', label: 'Volunteering', icon: '🤝' },
-  { href: '#video-gallery', label: 'Demos', icon: '🎬' },
-]
 
 export function Header() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [hasScrolled, setHasScrolled] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState('home');
   
+  // Throttle scroll event for better performance
   React.useEffect(() => {
-    const handleScroll = () => {
-      setHasScrolled(window.scrollY > 50);
+    let ticking = false;
+    
+    const updateActiveSection = () => {
+      const sections = navLinks.map(link => link.href.replace('#', ''));
+      let current = 'home';
       
-      // Update active section based on scroll position
-      const sections = [...mainNavLinks, ...moreNavLinks].map(link => link.href.replace('#', ''));
-      const current = sections.find(section => {
+      for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          const elementTop = rect.top;
+          const elementBottom = rect.bottom;
+          
+          // Check if element is in viewport (with some threshold)
+          // For home section, we check if we're near the top
+          if (section === 'home') {
+            if (window.scrollY < 200) {
+              current = 'home';
+              break;
+            }
+          } else {
+            // For other sections, check if they're in the middle of viewport
+            if (elementTop <= 150 && elementBottom >= 150) {
+              current = section;
+              break;
+            }
+          }
         }
-        return false;
-      });
-      if (current) setActiveSection(current);
+      }
+      
+      setActiveSection(current);
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      // Update scrolled state
+      setHasScrolled(window.scrollY > 50);
+      
+      // Throttle the active section update
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateActiveSection();
+        });
+        ticking = true;
+      }
+    };
+
+    // Initial check
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
-  const allNavLinks = [...mainNavLinks, ...moreNavLinks];
+  // Smooth scroll to section
+  const scrollToSection = (sectionId: string) => {
+    if (sectionId === 'home') {
+      // Scroll to top for home
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+    
+    // Update active section immediately
+    setActiveSection(sectionId);
+  };
+
+  const handleNavClick = (href: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    const sectionId = href.replace('#', '');
+    
+    scrollToSection(sectionId);
+    
+    // Close mobile menu if open
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  };
 
   const isActive = (href: string) => activeSection === href.replace('#', '');
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full transition-all duration-500 border-b",
+      "sticky top-0 z-50 w-full transition-all duration-300 border-b",
       hasScrolled 
-        ? "bg-background/80 backdrop-blur-xl shadow-lg border-border/20" 
+        ? "bg-white/95 backdrop-blur-md shadow-sm border-slate-200" 
         : "bg-transparent border-transparent"
     )}>
       <div className="container flex h-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 items-center justify-between">
-        {/* Enhanced Logo */}
-        <Link 
-          href="/" 
-          className="flex items-center gap-3 group relative" 
-          aria-label="Back to homepage"
+        {/* Logo - Home Button */}
+        <Button
+          variant="ghost"
+          className="flex items-center gap-3 group relative p-0 h-auto hover:bg-transparent"
+          onClick={(e) => handleNavClick('#home', e)}
+          aria-label="Scroll to Home"
         >
           <div className="relative">
-            <div className="p-2 rounded-xl bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
-              <Code className="h-5 w-5" />
+            <div className="p-2 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 text-white shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
+              <Briefcase className="h-5 w-5" />
             </div>
-            <Sparkles className="absolute -top-1 -right-1 h-3 w-3 text-yellow-400 fill-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute -top-1 -right-1 h-3 w-3 bg-emerald-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-bold font-headline tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent group-hover:from-primary group-hover:to-secondary transition-all duration-500">
-              Tauqeer Khan
+          <div className="flex flex-col items-start">
+            <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent group-hover:from-emerald-600 group-hover:to-blue-600 transition-all duration-300">
+              WASI AHMED KHAN
             </span>
-            <span className="text-xs text-muted-foreground font-medium tracking-wide">
-              Full Stack Developer
+            <span className="text-xs text-slate-600 font-medium tracking-wide font-sans uppercase mt-0.5">
+              Finance Professional
             </span>
           </div>
-        </Link>
+        </Button>
         
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 text-sm font-medium">
-          {mainNavLinks.map(link => (
-            <Link 
-              key={link.href} 
-              href={link.href}
+        <nav className="hidden lg:flex items-center gap-0.5 text-sm font-medium font-sans">
+          {navLinks.map(link => (
+            <Button
+              key={link.href}
+              variant="ghost"
+              onClick={(e) => handleNavClick(link.href, e)}
               className={cn(
-                "relative px-4 py-2 rounded-xl font-medium transition-all duration-300 group",
+                "relative px-4 py-2.5 rounded-lg font-medium transition-all duration-200 group",
                 isActive(link.href)
-                  ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-primary hover:bg-primary/5"
+                  ? "text-emerald-700 bg-emerald-50"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
               )}
             >
               <span className="flex items-center gap-2">
-                <span className="text-sm">{link.icon}</span>
                 {link.label}
               </span>
               
               {/* Active Indicator */}
               {isActive(link.href) && (
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-gradient-to-r from-emerald-600 to-blue-600 rounded-full"></div>
               )}
               
               {/* Hover Effect */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
-            </Link>
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-emerald-50/0 to-emerald-50/0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10"></div>
+            </Button>
           ))}
-          
-          {/* Enhanced Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button 
-                variant="ghost" 
-                className={cn(
-                  "px-4 py-2 rounded-xl font-medium transition-all duration-300 group",
-                  moreNavLinks.some(link => isActive(link.href))
-                    ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-primary hover:bg-primary/5"
-                )}
-              >
-                <span className="flex items-center gap-2">
-                  <span className="text-sm">✨</span>
-                  More 
-                  <ChevronDown className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180" />
-                </span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent 
-              align="end" 
-              className="bg-card/80 backdrop-blur-xl border-border/50 shadow-xl rounded-2xl p-2 min-w-[200px]"
-            >
-              {moreNavLinks.map((link) => (
-                <DropdownMenuItem key={link.href} asChild className="p-0">
-                  <Link 
-                    href={link.href}
-                    className={cn(
-                      "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 w-full",
-                      isActive(link.href)
-                        ? "text-primary bg-primary/10"
-                        : "text-muted-foreground hover:text-primary hover:bg-primary/5"
-                    )}
-                  >
-                    <span className="text-base">{link.icon}</span>
-                    {link.label}
-                    {isActive(link.href) && (
-                      <div className="ml-auto w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
-                    )}
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-          
-          {/* Enhanced Contact Button */}
-          <Button 
-            asChild 
-            className="font-bold bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:shadow-lg hover:scale-105 transition-all duration-300 ml-4 relative overflow-hidden group"
-          >
-            <Link href="#contact">
-              <span className="relative z-10 flex items-center gap-2">
-                <span className="text-sm">📧</span>
-                Contact Me
-              </span>
-              
-              {/* Button Shine Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-            </Link>
-          </Button>
         </nav>
 
         {/* Mobile Navigation */}
@@ -187,88 +188,85 @@ export function Header() {
               <Button 
                 variant="outline" 
                 size="icon" 
-                className="relative bg-background/50 backdrop-blur-sm border-border/50 hover:bg-primary/5 hover:border-primary/30 transition-all duration-300"
+                className="relative bg-white/80 backdrop-blur-sm border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all duration-200"
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="h-5 w-5 text-slate-700" />
                 <span className="sr-only">Open navigation menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent 
               side="right" 
-              className="bg-background/80 backdrop-blur-xl border-l-border/20 w-full sm:max-w-md"
+              className="bg-white/95 backdrop-blur-md border-l-slate-200 w-full sm:max-w-md p-0"
             >
               <div className="flex flex-col h-full">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-border/20">
-                  <Link 
-                    href="/" 
-                    className="flex items-center gap-3 group"
-                    onClick={() => setIsOpen(false)}
+                <div className="flex items-center justify-between p-6 border-b border-slate-200">
+                  <Button
+                    variant="ghost"
+                    className="flex items-center gap-3 group p-0 h-auto hover:bg-transparent"
+                    onClick={(e) => {
+                      handleNavClick('#home', e);
+                      setIsOpen(false);
+                    }}
                   >
-                    <div className="p-2 rounded-xl bg-gradient-to-br from-primary to-secondary text-primary-foreground">
-                      <Code className="h-5 w-5" />
+                    <div className="p-2 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 text-white">
+                      <Briefcase className="h-5 w-5" />
                     </div>
-                    <div className="flex flex-col">
-                      <span className="text-lg font-bold font-headline bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                        Tauqeer Khan
+                    <div className="flex flex-col items-start">
+                      <span className="text-lg font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                        WASI AHMED KHAN
                       </span>
-                      <span className="text-xs text-muted-foreground">Developer</span>
+                      <span className="text-xs text-slate-600 font-sans uppercase">
+                        Finance Professional
+                      </span>
                     </div>
-                  </Link>
+                  </Button>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setIsOpen(false)}
-                    className="hover:bg-primary/10"
+                    className="hover:bg-slate-100 text-slate-700"
                   >
                     <X className="h-5 w-5" />
                   </Button>
                 </div>
 
                 {/* Navigation Links */}
-                <nav className="flex-1 p-6 space-y-2">
-                  {allNavLinks.map(link => (
-                    <Link 
-                      key={link.href} 
-                      href={link.href} 
+                <nav className="flex-1 p-6 space-y-1">
+                  {navLinks.map(link => (
+                    <Button
+                      key={link.href}
+                      variant="ghost"
                       className={cn(
-                        "flex items-center gap-4 px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 group",
+                        "w-full justify-start flex items-center gap-4 px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 group font-sans",
                         isActive(link.href)
-                          ? "text-primary bg-primary/10 border border-primary/20"
-                          : "text-muted-foreground hover:text-primary hover:bg-primary/5"
+                          ? "text-emerald-700 bg-emerald-50 border border-emerald-100"
+                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                       )}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => {
+                        handleNavClick(link.href, e);
+                        setIsOpen(false);
+                      }}
                     >
-                      <span className="text-lg">{link.icon}</span>
                       {link.label}
                       {isActive(link.href) && (
-                        <div className="ml-auto w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full animate-pulse"></div>
+                        <div className="ml-auto w-2 h-2 bg-gradient-to-r from-emerald-600 to-blue-600 rounded-full animate-pulse"></div>
                       )}
-                    </Link>
+                    </Button>
                   ))}
                 </nav>
-
-                {/* Footer CTA */}
-                <div className="p-6 border-t border-border/20">
-                  <Button 
-                    asChild 
-                    className="w-full font-bold bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:shadow-lg hover:scale-105 transition-all duration-300 relative overflow-hidden group"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Link href="#contact">
-                      <span className="relative z-10 flex items-center gap-2">
-                        <span className="text-sm">📧</span>
-                        Get In Touch
-                      </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    </Link>
-                  </Button>
-                  
-                  {/* Quick Info */}
-                  <div className="mt-4 text-center">
-                    <p className="text-xs text-muted-foreground">
-                      Available for freelance & full-time opportunities
+                
+                {/* Mobile Footer */}
+                <div className="p-6 border-t border-slate-200">
+                  <div className="text-center">
+                    <p className="text-sm text-slate-500 font-sans mb-2">
+                      Open to financial analyst roles & strategic opportunities
                     </p>
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
+                      <span className="text-xs text-slate-400 font-sans">Available for opportunities</span>
+                      <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
+                    </div>
                   </div>
                 </div>
               </div>

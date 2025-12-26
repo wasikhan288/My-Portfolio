@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Mail, FileText, ChevronRight } from 'lucide-react';
+import { Mail, FileText, ChevronRight, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
@@ -238,13 +238,23 @@ export function Hero() {
                     whileTap={{ scale: 0.98 }}
                   >
                     <Button
-                      size="lg"
-                      variant="outline"
-                      className="px-8 font-medium border-border text-foreground hover:bg-foreground/5 rounded-lg h-12"
-                    >
-                      <FileText className="w-4 h-4 mr-2" />
-                      <span>CV</span>
-                    </Button>
+  size="lg"
+  variant="outline"
+  className="px-8 font-medium border-emerald-600 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-700 transition-all duration-300 rounded-lg h-12 font-sans"
+  asChild
+>
+  <a 
+    href="https://9c386fe9-b3ee-43e8-8936-b3277514e0d1.filesusr.com/ugd/75cc74_e8837825006b4636a33fdb53f09dafa7.docx?dn=Wasi-CV-Website.docx" 
+    download="Wasi_Ahmed_Khan_Finance_Professional_CV.pdf" 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    className="flex items-center gap-2"
+  >
+    <FileText className="w-4 h-4 mr-2" />
+    <span>Download CV</span>
+    <Download className="w-4 h-4 ml-1" />
+  </a>
+</Button>
                   </motion.div>
                 </div>
               </div>
@@ -291,7 +301,7 @@ export function Hero() {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <Image
-                    src="https://raw.githubusercontent.com/faskey37/My-Portfolio/main/2.jpeg"
+                    src="https://raw.githubusercontent.com/wasikhan288/My-Portfolio/main/hero.png"
                     alt="Wasi Ahmed Khan - Finance Professional"
                     fill
                     className="object-cover"

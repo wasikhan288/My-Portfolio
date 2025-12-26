@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: "Tauqeer Khan | Full Stack Developer",
-  description: "Professional portfolio of Tauqeer Khan, Full Stack Developer specializing in modern web technologies.",
+  title: "Wasi Ahmed Khan | Finance Professional",
+  description: "Professional portfolio of Wasi Ahmed Khan, Finance Professional specializing in business analytics and financial modeling.",
 };
 
 export default function RootLayout({

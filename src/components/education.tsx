@@ -1,34 +1,83 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { GraduationCap, BookOpen, Award, Calendar } from "lucide-react";
+import { GraduationCap, Globe, Building, School, Award, BookOpen, TrendingUp } from "lucide-react";
 
 const educationData = [
   {
-    date: '2023 - 2027',
-    title: "Bachelor of Technology in Computer Science",
-    institution: 'Anjuman College of Engineering and Technology, Nagpur',
-    description: 'Currently pursuing my B.Tech with focus on software engineering, web technologies, and system design. Actively participating in coding competitions and building projects to apply theoretical knowledge.',
-    icon: GraduationCap,
-    highlights: ['CGPA: 8.5/10', 'Web Development Focus', 'Active in Tech Clubs'],
+    date: 'Oct 2025 – Mar 2026',
+    title: "Master of Science in Finance (MFin)",
+    institution: 'Hult International Business School | Boston, MA, USA',
+    description: 'Advanced finance program focusing on investment analysis, financial management, and pricing strategies. Currently serving as Treasurer in Executive Leadership Board at Hult African Business Club.',
+    icon: Building,
+    highlights: [
+      'Investment Analysis', 
+      'Financial Management', 
+      'Cost & Managerial Analysis',
+      'Financial Accounting',
+      'Pricing Strategies'
+    ],
+    activities: [
+      'Treasurer in Executive Leadership Board at Hult African Business Club',
+      'Advanced financial modeling and analysis'
+    ],
+    status: 'upcoming'
+  },
+  {
+    date: 'Oct 2024 - Aug 2025',
+    title: 'Master of Science in International Business (MIB)',
+    institution: 'Hult International Business School | Dubai, UAE',
+    description: 'International business program with focus on global strategy, financial management, and data-driven business insights. Active member of Student Services Task Force and Finance Club.',
+    icon: Globe,
+    highlights: [
+      'Financial Management', 
+      'Business Insights through Data', 
+      'Design Thinking for Innovation',
+      'Accounting for Managers'
+    ],
+    activities: [
+      'Member of Student Services Task Force',
+      'Active participation in Finance Club',
+      'Cross-cultural business strategy development'
+    ],
     status: 'current'
   },
   {
-    date: '2021 - 2023',
-    title: 'Higher Secondary Education (Science Stream)',
-    institution: 'St. Paul School, Nagpur',
-    description: 'Completed 12th grade with Physics, Chemistry, and Mathematics, building strong analytical and problem-solving skills that formed the foundation for my engineering journey.',
-    icon: BookOpen,
-    highlights: ['Percentage: 85%', 'Science Stream', 'Mathematics Focus'],
+    date: 'Oct 2020 – Sep 2023',
+    title: 'Bachelor of Vocational Studies (B.Voc)',
+    institution: 'Pune University | India',
+    description: 'Specialization in Banking, Financial Services and Insurance with Actuarial Studies (BFSI with AS). Core Committee Member of Start-up & Innovation Cell, organizing events to promote new entrepreneurs and ventures.',
+    icon: GraduationCap,
+    highlights: [
+      'Actuarial Studies', 
+      'Financial Mathematics', 
+      'Advanced Accounting',
+      'Direct & Indirect Taxes',
+      'Intro to IFRS'
+    ],
+    activities: [
+      'Core Committee Member of Start-up & Innovation Cell',
+      'Organized entrepreneurship events and workshops',
+      'Financial services and insurance specialization'
+    ],
     status: 'completed'
   },
   {
-    date: '2010 - 2021',
-    title: 'Secondary Education',
-    institution: 'St. Vincent Pallotti School, Nagpur',
-    description: 'Completed 10th grade with distinction, where I first discovered my passion for technology and logical thinking through mathematics and computer science fundamentals.',
-    icon: Award,
-    highlights: ['Percentage: 92%', 'Computer Science', 'Mathematics Topper'],
+    date: 'Oct 2018 – Sep 2020',
+    title: 'Higher Secondary Education (Commerce Stream)',
+    institution: 'MAHHSC | India',
+    description: 'Commerce stream with concentration in Commercial Studies, Banking, Accounting, Economics & Business Studies. Actively participated in social awareness activities including street plays.',
+    icon: School,
+    highlights: [
+      'Commercial Studies', 
+      'Banking & Accounting', 
+      'Economics',
+      'Business Studies'
+    ],
+    activities: [
+      'Street plays addressing social causes',
+      'Foundation in commercial principles'
+    ],
     status: 'completed'
   },
 ];
@@ -39,7 +88,7 @@ export function Education() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.15
       }
     }
   };
@@ -56,22 +105,36 @@ export function Education() {
     }
   };
 
+  const getStatusColor = (status: string) => {
+    switch(status) {
+      case 'current': return 'bg-green-500/20 text-green-600 border-green-500/30';
+      case 'upcoming': return 'bg-blue-500/20 text-blue-600 border-blue-500/30';
+      case 'completed': return 'bg-gray-500/20 text-gray-600 border-gray-500/30';
+      default: return 'bg-primary/20 text-primary border-primary/30';
+    }
+  };
+
   return (
-    <section id="education" className="py-24 sm:py-32 bg-gradient-to-b from-background to-card/50 relative overflow-hidden">
+    <section id="education" className="py-24 sm:py-32 bg-gradient-to-b from-white to-primary/5 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
-        
-        {/* Grid Pattern */}
+        {/* Financial Grid Pattern */}
         <div 
-          className="absolute inset-0 opacity-[0.02]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: `linear-gradient(#000 1px, transparent 1px),
-                             linear-gradient(90deg, #000 1px, transparent 1px)`,
-            backgroundSize: '50px 50px',
+            backgroundImage: `linear-gradient(90deg, #000 1px, transparent 1px),
+                             linear-gradient(#000 1px, transparent 1px)`,
+            backgroundSize: '80px 80px',
           }}
         />
+        
+        {/* Decorative Elements */}
+        <div className="absolute top-20 left-1/4 w-32 h-32 border border-primary/10 rounded-full opacity-10"></div>
+        <div className="absolute bottom-20 right-1/4 w-40 h-40 border border-secondary/10 rounded-lg rotate-45 opacity-10"></div>
+        
+        {/* Gradient Accents */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary/20 to-transparent"></div>
       </div>
 
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -83,13 +146,16 @@ export function Education() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="font-headline text-4xl sm:text-5xl font-bold tracking-tight mb-4">
-            Academic <span className="text-gradient">Journey</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
+            <Award className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">ACADEMIC QUALIFICATIONS</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-light tracking-tight mb-4">
+            Education <span className="font-normal text-primary">Timeline</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            My educational path that shaped my passion for technology and innovation
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            From foundational commerce studies to specialized finance and international business education
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-6 rounded-full"></div>
         </motion.div>
 
         {/* Timeline */}
@@ -101,7 +167,7 @@ export function Education() {
           className="relative"
         >
           {/* Central Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary via-secondary to-accent hidden lg:block"></div>
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-primary/20 via-secondary/20 to-primary/20 hidden lg:block"></div>
 
           <div className="space-y-12 lg:space-y-16">
             {educationData.map((item, index) => {
@@ -119,24 +185,26 @@ export function Education() {
                   {/* Date Section */}
                   <div className={`w-full lg:w-2/5 ${isEven ? 'lg:text-right' : 'lg:text-left'} text-center lg:text-left`}>
                     <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      className="inline-flex items-center gap-2 bg-card/80 backdrop-blur-sm border border-border rounded-2xl px-6 py-4 shadow-lg"
+                      whileHover={{ scale: 1.02 }}
+                      className="inline-flex items-center gap-3 bg-white border border-gray-200 rounded-xl px-6 py-4 shadow-sm"
                     >
-                      <Calendar className="w-5 h-5 text-primary" />
-                      <span className="text-lg font-semibold text-foreground">{item.date}</span>
-                      {item.status === 'current' && (
-                        <span className="bg-green-500/20 text-green-600 text-xs px-2 py-1 rounded-full font-medium">
-                          Current
-                        </span>
-                      )}
+                      <div className={`p-2 rounded-lg ${getStatusColor(item.status)}`}>
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="text-lg font-semibold text-gray-900">{item.date}</span>
+                        <div className={`text-xs font-medium px-2 py-1 rounded-full mt-1 ${getStatusColor(item.status)}`}>
+                          {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+                        </div>
+                      </div>
                     </motion.div>
                   </div>
 
                   {/* Icon Connector */}
                   <div className="hidden lg:flex relative z-10">
                     <motion.div
-                      whileHover={{ scale: 1.2, rotate: 5 }}
-                      className="w-16 h-16 bg-background border-4 border-primary rounded-full flex items-center justify-center shadow-lg"
+                      whileHover={{ scale: 1.1 }}
+                      className="w-16 h-16 bg-white border-2 border-primary rounded-full flex items-center justify-center shadow-lg"
                     >
                       <Icon className="w-7 h-7 text-primary" />
                     </motion.div>
@@ -145,34 +213,49 @@ export function Education() {
                   {/* Content Card */}
                   <div className="w-full lg:w-2/5">
                     <motion.div
-                      whileHover={{ y: -5 }}
-                      className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden"
+                      whileHover={{ y: -3 }}
+                      className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition-all duration-300"
                     >
-                      {/* Gradient Border Effect */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      
-                      <div className="relative z-10">
-                        {/* Mobile Icon */}
-                        <div className="lg:hidden mb-4">
-                          <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                            <Icon className="w-6 h-6 text-primary" />
-                          </div>
+                      {/* Mobile Icon */}
+                      <div className="lg:hidden mb-4">
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${getStatusColor(item.status)}`}>
+                          <Icon className="w-6 h-6" />
                         </div>
+                      </div>
 
-                        <h3 className="text-2xl font-bold font-headline mb-2 text-foreground">
-                          {item.title}
-                        </h3>
-                        
-                        <p className="text-lg text-primary font-semibold mb-4 flex items-center gap-2">
-                          <span className="w-2 h-2 bg-primary rounded-full"></span>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        {item.title}
+                      </h3>
+                      
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                        <p className="text-gray-700 font-medium">
                           {item.institution}
                         </p>
-                        
-                        <p className="text-muted-foreground mb-6 leading-relaxed">
-                          {item.description}
-                        </p>
+                      </div>
+                      
+                      <p className="text-gray-600 mb-6 leading-relaxed">
+                        {item.description}
+                      </p>
 
-                        {/* Highlights */}
+                      {/* Activities */}
+                      {item.activities && item.activities.length > 0 && (
+                        <div className="mb-6 space-y-2">
+                          <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">Activities & Involvement</h4>
+                          <ul className="space-y-1">
+                            {item.activities.map((activity, idx) => (
+                              <li key={idx} className="flex items-start gap-2 text-sm text-gray-600">
+                                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                                <span>{activity}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Highlights / Relevant Courses */}
+                      <div>
+                        <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2">Relevant Courses & Skills</h4>
                         <div className="flex flex-wrap gap-2">
                           {item.highlights.map((highlight, highlightIndex) => (
                             <motion.span
@@ -181,7 +264,7 @@ export function Education() {
                               whileInView={{ opacity: 1, scale: 1 }}
                               transition={{ duration: 0.3, delay: highlightIndex * 0.1 }}
                               viewport={{ once: true }}
-                              className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
+                              className="px-3 py-1 bg-primary/10 text-primary rounded-lg text-sm font-medium border border-primary/20"
                             >
                               {highlight}
                             </motion.span>
@@ -196,29 +279,39 @@ export function Education() {
           </div>
         </motion.div>
 
-        {/* Bottom CTA */}
+        {/* Current Focus */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mt-20"
+          className="mt-20"
         >
-          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-2xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold font-headline mb-4">
-              Continuous Learning Journey
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              Currently expanding my skills in modern web technologies, cloud computing, 
-              and software architecture while balancing academic excellence with practical projects.
-            </p>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full font-semibold cursor-pointer"
-            >
-              <BookOpen className="w-5 h-5" />
-              View My Projects
-            </motion.div>
+          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-2xl p-8">
+            <div className="flex flex-col lg:flex-row items-center gap-8">
+              <div className="lg:w-1/4 text-center lg:text-left">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-xl mb-4">
+                  <TrendingUp className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">Current Focus</h3>
+              </div>
+              
+              <div className="lg:w-3/4">
+                <p className="text-gray-700 text-lg leading-relaxed mb-4">
+                  Currently completing dual Master's degrees in International Business and Finance at Hult International Business School. 
+                  Building expertise in financial modeling, investment analysis, and global business strategy for roles in capital markets, 
+                  risk management, and corporate finance.
+                </p>
+                
+                <div className="flex flex-wrap gap-3">
+                  <span className="px-3 py-1 bg-white border border-primary/20 text-primary rounded-lg text-sm font-medium">Financial Modeling</span>
+                  <span className="px-3 py-1 bg-white border border-green-500/20 text-green-600 rounded-lg text-sm font-medium">Investment Analysis</span>
+                  <span className="px-3 py-1 bg-white border border-blue-500/20 text-blue-600 rounded-lg text-sm font-medium">Risk Management</span>
+                  <span className="px-3 py-1 bg-white border border-purple-500/20 text-purple-600 rounded-lg text-sm font-medium">Global Strategy</span>
+                  <span className="px-3 py-1 bg-white border border-orange-500/20 text-orange-600 rounded-lg text-sm font-medium">Corporate Finance</span>
+                </div>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

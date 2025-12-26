@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { Github, Linkedin, Mail, Twitter, Instagram, Phone, MapPin, ArrowUp, Heart, Code, Sparkles } from 'lucide-react';
+import { Linkedin, Mail, Phone, MapPin, ArrowUp, Heart, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 
@@ -22,57 +22,29 @@ export function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const quickLinks = [
+  const navLinks = [
     { href: '#home', label: 'Home' },
     { href: '#about', label: 'About' },
-    { href: '#skills', label: 'Skills' },
+    { href: '#education', label: 'Education' },
     { href: '#projects', label: 'Projects' },
     { href: '#experience', label: 'Experience' },
+    { href: '#interests', label: 'Interests' },
+    { href: '#data-analysis', label: 'Data Analysis' },
     { href: '#contact', label: 'Contact' },
-  ];
-
-  const resourceLinks = [
-    { href: '#education', label: 'Education' },
-    { href: '#certificates', label: 'Certificates' },
-    { href: '#achievements', label: 'Achievements' },
-    { href: '#volunteering', label: 'Volunteering' },
-    { href: '#freelance', label: 'Freelance' },
-    { href: '#video-gallery', label: 'Demos' },
   ];
 
   const socialLinks = [
     {
-      icon: Github,
-      href: "https://github.com/faskey37",
-      label: "GitHub",
-      color: "hover:bg-gray-900 hover:text-white",
-      username: "@faskey37"
-    },
-    {
       icon: Linkedin,
-      href: "https://www.linkedin.com/in/tauqeer-khan-64249a32b/",
+      href: "https://www.linkedin.com/in/wasi-ahmed-khan/",
       label: "LinkedIn",
-      color: "hover:bg-blue-600 hover:text-white",
-      username: "Tauqeer Khan"
-    },
-    {
-      icon: Mail,
-      href: "mailto:tauqeer.khan.webdev@gmail.com",
-      label: "Email",
-      color: "hover:bg-red-500 hover:text-white",
-      username: "tauqeer.khan.webdev@gmail.com"
-    },
-    {
-      icon: Twitter,
-      href: "#",
-      label: "Twitter",
-      color: "hover:bg-sky-500 hover:text-white",
-      username: "@tauqeerkhan"
+      color: "hover:bg-primary hover:text-primary-foreground",
+      username: "Wasi Ahmed Khan"
     },
   ];
 
   return (
-    <footer className="bg-foreground text-background pt-32 pb-12 relative overflow-hidden">
+    <footer className="bg-[#0F0E0E] text-primary-foreground pt-32 pb-12 relative overflow-hidden">
       {/* Enhanced Wave Background */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
         <svg 
@@ -90,32 +62,32 @@ export function Footer() {
       </div>
 
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]"></div>
+      <div className="absolute inset-0 bg-grid-primary-foreground/[0.03] bg-[size:60px_60px]"></div>
       
       {/* Floating Elements */}
       <div className="absolute top-20 left-10 w-4 h-4 bg-primary rounded-full opacity-20 animate-float"></div>
       <div className="absolute top-40 right-20 w-3 h-3 bg-secondary rounded-full opacity-30 animate-float" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute bottom-40 left-1/4 w-2 h-2 bg-primary rounded-full opacity-40 animate-float" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute bottom-40 left-1/4 w-2 h-2 bg-accent rounded-full opacity-40 animate-float" style={{ animationDelay: '2s' }}></div>
 
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Main Footer Content */}
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mb-16">
+        <div className="grid lg:grid-cols-3 gap-8 mb-16">
           {/* Brand Section */}
           <div className="space-y-6">
             <div className="flex items-center gap-3 group">
-              <div className="p-2 rounded-xl bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-lg">
-                <Code className="h-6 w-6" />
+              <div className="p-2 rounded-lg bg-primary/30 text-primary-foreground shadow-md">
+                <Briefcase className="h-6 w-6" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold font-headline bg-gradient-to-r from-background to-background/70 bg-clip-text text-transparent group-hover:from-primary group-hover:to-secondary transition-all duration-500">
-                  Tauqeer Khan
+                <h3 className="text-2xl font-bold text-primary-foreground">
+                  WASI AHMED KHAN
                 </h3>
-                <p className="text-sm text-primary font-medium">Full Stack Developer</p>
+                <p className="text-sm text-primary font-medium uppercase mt-1">Finance Professional</p>
               </div>
             </div>
-            <p className="text-muted-foreground leading-relaxed">
-              Crafting digital experiences that are fast, accessible, and visually stunning. 
-              Let's build something extraordinary together.
+            <p className="text-primary-foreground/90 leading-relaxed">
+              Aspiring financial analyst with strong foundation in finance, risk management, and analytics. 
+              Passionate about creating sustainable financial strategies and delivering data-driven insights.
             </p>
             
             {/* Social Links */}
@@ -126,7 +98,7 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-3 rounded-xl bg-foreground/50 border border-border/30 text-background/70 hover:scale-110 transition-all duration-300 ${social.color} group relative overflow-hidden`}
+                  className={`p-3 rounded-xl bg-white/10 border border-white/20 text-primary-foreground hover:scale-110 transition-all duration-300 ${social.color} group relative overflow-hidden`}
                   title={social.label}
                 >
                   <social.icon className="w-5 h-5" />
@@ -137,39 +109,18 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Navigation Links */}
           <div className="space-y-4">
-            <h4 className="text-lg font-bold text-background flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-primary" />
+            <h4 className="text-lg font-bold text-primary-foreground flex items-center gap-2">
+              <Briefcase className="w-5 h-5 text-primary" />
               Navigation
             </h4>
             <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
+              {navLinks.map((link, index) => (
                 <li key={index}>
                   <Link 
                     href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-2 flex items-center gap-2 group"
-                  >
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-bold text-background flex items-center gap-2">
-              <Code className="w-5 h-5 text-primary" />
-              Resources
-            </h4>
-            <ul className="space-y-3">
-              {resourceLinks.map((link, index) => (
-                <li key={index}>
-                  <Link 
-                    href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-2 flex items-center gap-2 group"
+                    className="text-primary-foreground/80 hover:text-primary transition-all duration-300 hover:translate-x-2 flex items-center gap-2 group"
                   >
                     <div className="w-1.5 h-1.5 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     {link.label}
@@ -181,44 +132,44 @@ export function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="text-lg font-bold text-background flex items-center gap-2">
+            <h4 className="text-lg font-bold text-primary-foreground flex items-center gap-2">
               <Mail className="w-5 h-5 text-primary" />
-              Get In Touch
+              Contact Information
             </h4>
             <div className="space-y-3">
               <a 
-                href="mailto:tauqeer.khan.webdev@gmail.com" 
-                className="flex items-center gap-3 p-3 rounded-xl bg-foreground/50 border border-border/30 hover:bg-foreground/70 transition-all duration-300 group"
+                href="mailto:wasi28khan@gmail.com" 
+                className="flex items-center gap-3 p-3 rounded-xl bg-white/10 border border-white/20 hover:bg-white/15 transition-all duration-300 group"
               >
-                <div className="p-2 rounded-lg bg-primary/20 text-primary">
+                <div className="p-2 rounded-lg bg-primary/30 text-primary">
                   <Mail className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-background font-medium text-sm">Email</p>
-                  <p className="text-muted-foreground text-xs">tauqeer.khan.webdev@gmail.com</p>
+                  <p className="text-primary-foreground font-medium text-sm">Email</p>
+                  <p className="text-primary-foreground/80 text-xs">wasi28khan@gmail.com</p>
                 </div>
               </a>
               
               <a 
-                href="tel:+918484970238" 
-                className="flex items-center gap-3 p-3 rounded-xl bg-foreground/50 border border-border/30 hover:bg-foreground/70 transition-all duration-300 group"
+                href="tel:+918600536726" 
+                className="flex items-center gap-3 p-3 rounded-xl bg-white/10 border border-white/20 hover:bg-white/15 transition-all duration-300 group"
               >
-                <div className="p-2 rounded-lg bg-primary/20 text-primary">
+                <div className="p-2 rounded-lg bg-primary/30 text-primary">
                   <Phone className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-background font-medium text-sm">Phone</p>
-                  <p className="text-muted-foreground text-xs">+91 8484970238</p>
+                  <p className="text-primary-foreground font-medium text-sm">Phone</p>
+                  <p className="text-primary-foreground/80 text-xs">+91 86005 36726</p>
                 </div>
               </a>
               
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-foreground/50 border border-border/30">
-                <div className="p-2 rounded-lg bg-primary/20 text-primary">
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-white/10 border border-white/20">
+                <div className="p-2 rounded-lg bg-primary/30 text-primary">
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-background font-medium text-sm">Location</p>
-                  <p className="text-muted-foreground text-xs">Nagpur, Maharashtra</p>
+                  <p className="text-primary-foreground font-medium text-sm">Location</p>
+                  <p className="text-primary-foreground/80 text-xs">Pune, Maharashtra, India</p>
                 </div>
               </div>
             </div>
@@ -226,22 +177,18 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-border/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2 text-muted-foreground text-sm">
-            <span>&copy; {currentYear} Tauqeer Khan. All rights reserved.</span>
+        <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-2 text-primary-foreground/80 text-sm">
+            <span>&copy; {currentYear} Wasi Ahmed Khan. All rights reserved.</span>
             <span className="flex items-center gap-1">
-              Made with <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" /> and lots of
-              <Code className="w-4 h-4 text-primary ml-1" />
+              Made with <Heart className="w-4 h-4 text-accent fill-accent" />
             </span>
           </div>
           
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <Link href="/privacy" className="hover:text-primary transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:text-primary transition-colors">
-              Terms of Service
-            </Link>
+          <div className="flex items-center gap-2 text-primary-foreground text-sm">
+            <p className="font-medium">
+              Open to full-time positions, internships, and strategic financial projects
+            </p>
           </div>
         </div>
       </div>
@@ -250,8 +197,8 @@ export function Footer() {
       <Button
         onClick={scrollToTop}
         className={`
-          fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-r from-primary to-secondary 
-          text-primary-foreground shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300
+          fixed bottom-8 right-8 w-12 h-12 rounded-full btn-primary
+          shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300
           ${showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}
         `}
         size="icon"

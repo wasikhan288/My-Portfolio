@@ -4,16 +4,10 @@ import { About } from '@/components/about';
 import { Projects } from '@/components/projects';
 import { Contact } from '@/components/contact';
 import { Footer } from '@/components/footer';
-import { Timeline } from '@/components/timeline';
-import { Skills } from '@/components/skills';
-import { FeaturedSkills } from '@/components/featured-skills';
+import { Timeline } from '@/components/experience';
+import { DataAnalysisPage } from '@/components/data-analysis-page';
 import { Education } from '@/components/education';
 import { Interests } from '@/components/interests';
-import { CurrentlyLearning } from '@/components/currently-learning';
-import { Achievements } from '@/components/achievements';
-import { VideoGallery } from '@/components/video-gallery';
-import { Volunteering } from '@/components/volunteering';
-import { Certificates } from '@/components/certificates';
 import { AITourGuide } from '@/components/ai-tour-guide';
 
 export default function Home() {
@@ -24,17 +18,11 @@ export default function Home() {
         <Hero />
         <About />
         <Education />
-        <Interests />
-        <CurrentlyLearning />
-        <Skills />
         <Timeline />
-        <FeaturedSkills />
+        <Interests />
+        < DataAnalysisPage />
         <Projects />
          <AITourGuide />
-        <VideoGallery />
-        <Achievements />
-        <Volunteering />
-        <Certificates />
         <Contact />
       </main>
       <Footer />

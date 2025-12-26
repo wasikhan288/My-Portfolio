@@ -4,16 +4,15 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Mic, 
   X, 
   Play, 
   Pause,
-  SkipForward,
-  Bot,
   Volume2,
   VolumeX,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Briefcase,
+  BarChart3
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -22,94 +21,72 @@ interface TourStep {
   title: string;
   description: string;
   section: string;
-  estimatedReadTime: number; // in milliseconds
+  estimatedReadTime: number;
 }
 
 const tourSteps: TourStep[] = [
   {
     id: 'welcome',
-    title: 'Welcome to My Portfolio! 🚀',
-    description: "Hello! I'm Tauqeer Khan, a passionate Full Stack Developer. I'll guide you through my portfolio to show you my skills, projects, and experience. Let's begin our journey!",
+    title: 'Welcome to My Finance Portfolio! 📊',
+    description: "Hello! I'm Wasi Ahmed Khan, a dedicated Finance Professional specializing in financial analysis, risk management, and strategic planning. I'll guide you through my portfolio to showcase my expertise, projects, and achievements in the financial sector. Let's explore my journey together!",
     section: 'home',
-    estimatedReadTime: 8000
+    estimatedReadTime: 5000
   },
   {
     id: 'about',
-    title: 'Get to Know Me 👨‍💻',
-    description: "This is where you can learn about my background, my passion for technology, and what drives me as a developer. I believe in continuous learning and creating meaningful digital experiences that solve real-world problems.",
+    title: 'Professional Background 👨‍💼',
+    description: "This section outlines my professional journey and philosophy. With dual Master's degrees in International Business and Finance from Hult International Business School, I combine analytical rigor with strategic thinking. My experience spans banking, financial analysis, and business strategy across multiple industries.",
     section: 'about',
-    estimatedReadTime: 10000
+    estimatedReadTime: 6000
   },
   {
-    id: 'skills',
-    title: 'My Technical Toolkit 🛠️',
-    description: "Here you'll find my technical expertise across frontend development with React and JavaScript, backend skills with Java and Firebase, and various tools I use daily. I'm always expanding my skill set through hands-on projects and continuous learning.",
-    section: 'skills',
-    estimatedReadTime: 12000
-  },
-  {
-    id: 'projects',
-    title: 'Featured Projects 💼',
-    description: "This section showcases my favorite projects including web applications, mobile apps, and innovative solutions. Each project represents real-world problems I've solved using modern technologies. You'll see everything from EV service platforms to healthcare applications.",
-    section: 'projects',
-    estimatedReadTime: 12000
+    id: 'education',
+    title: 'Academic Credentials 🎓',
+    description: "Here you'll find my comprehensive educational background, including my Master's in Finance from Hult International Business School, Master's in International Business, and Bachelor's in Banking & Financial Services from Pune University. Each program has equipped me with specialized knowledge in finance, analytics, and strategic management.",
+    section: 'education',
+    estimatedReadTime: 7000
   },
   {
     id: 'experience',
-    title: 'Professional Journey 📈',
-    description: "Learn about my work experience, freelance projects, and professional growth in the tech industry. I've worked on various projects that helped me grow as a developer and understand real-world business requirements.",
+    title: 'Professional Experience 💼',
+    description: "This section details my professional journey including my role as Management Trainee at EuroKids Pre-School, where I improved financial record accuracy by 20%, and my internship at Bank of Baroda where I conducted Excel-based retail lending analysis and identified growth opportunities in underpenetrated segments.",
     section: 'experience',
-    estimatedReadTime: 10000
+    estimatedReadTime: 7000
   },
   {
-    id: 'learning',
-    title: 'Continuous Learning 📚',
-    description: "I'm always learning new technologies! Currently exploring React Native for mobile development, Node.js for backend services, Machine Learning for intelligent applications, and Data Science for data-driven insights.",
-    section: 'learning',
-    estimatedReadTime: 10000
+    id: 'interests',
+    title: 'Professional Interests & Hobbies 🎯',
+    description: "Beyond finance, I maintain a diverse range of interests including Indian classical singing, which has shaped my discipline and approach to complex problems. I enjoy reading behavioral finance books like 'The Psychology of Money' and 'Blink', which influence how I think about risk and decision-making in financial contexts.",
+    section: 'interests',
+    estimatedReadTime: 6000
   },
   {
-    id: 'achievements',
-    title: 'Achievements & Recognition 🏆',
-    description: "Here you can see my accomplishments, certifications, and recognitions including my ACM membership and participation in tech events and hackathons. These represent my commitment to professional growth.",
-    section: 'achievements',
-    estimatedReadTime: 8000
+    id: 'data-analysis',
+    title: 'Data Analytics Expertise 📈',
+    description: "This section showcases my proficiency in data analysis tools and techniques. I've worked extensively with Excel, Power BI, and R programming for financial modeling, data visualization, and statistical analysis. My projects include H1B visa analysis, AirBnB risk detection, and comprehensive financial dashboards.",
+    section: 'data-analysis',
+    estimatedReadTime: 7000
   },
   {
-    id: 'volunteering',
-    title: 'Community Involvement 🤝',
-    description: "I believe in giving back to the community. This section shows my volunteering work and social initiatives where I've contributed to meaningful causes like traffic awareness campaigns and community welfare programs.",
-    section: 'volunteering',
-    estimatedReadTime: 8000
-  },
-  {
-    id: 'certificates',
-    title: 'Certifications & Credentials 📜',
-    description: "These are my official certifications and credentials that validate my skills and knowledge in various technologies and methodologies. They demonstrate my dedication to professional development.",
-    section: 'certificates',
-    estimatedReadTime: 8000
-  },
-  {
-    id: 'video-gallery',
-    title: 'Project Demos 🎬',
-    description: "Watch my projects in action! This section contains video demonstrations showing the functionality and features of my applications. You can see how my projects work in real-time scenarios.",
-    section: 'video-gallery',
+    id: 'projects',
+    title: 'Financial Projects & Case Studies 💡',
+    description: "Here you'll find my comprehensive financial analysis projects including WeWork pre-IPO valuation, Accenture financial statement analysis, Turo fleet financial modeling, and AI-driven risk-based pricing analysis for U.S. Bank. Each project demonstrates my ability to apply financial theory to real-world business scenarios.",
+    section: 'projects',
     estimatedReadTime: 8000
   },
   {
     id: 'contact',
-    title: "Let's Work Together! 📞",
-    description: "Interested in collaborating? Here's how you can reach me. I'm always open to discussing new opportunities, projects, or just having a chat about technology. Feel free to get in touch anytime!",
+    title: "Let's Connect for Opportunities! 🤝",
+    description: "Interested in discussing financial analyst roles, risk management positions, or strategic collaborations? This section provides all my contact information and demonstrates my availability for full-time positions, internships, and strategic financial projects in capital markets, corporate finance, and data analytics.",
     section: 'contact',
-    estimatedReadTime: 8000
+    estimatedReadTime: 5000
   }
 ];
 
-// Custom hook for speech synthesis with better configuration
+// Custom hook for speech synthesis
 function useSpeechSynthesis() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isSupported, setIsSupported] = useState(true);
-  const [currentUtterance, setCurrentUtterance] = useState<SpeechSynthesisUtterance | null>(null);
   const speechSynth = useRef<SpeechSynthesis | null>(null);
 
   useEffect(() => {
@@ -135,51 +112,32 @@ function useSpeechSynthesis() {
       }
 
       try {
-        // Cancel any ongoing speech
         if (speechSynth.current.speaking) {
           speechSynth.current.cancel();
         }
 
         const utterance = new SpeechSynthesisUtterance(text);
-        
-        // Configure for better pronunciation and clarity
-        utterance.rate = 0.75; // Slower for better understanding
+        utterance.rate = 0.9;
         utterance.pitch = 1.0;
         utterance.volume = 1.0;
         
-        // Get available voices and select the best one
         const voices = speechSynth.current.getVoices();
-        const preferredVoices = voices.filter(voice => 
-          voice.lang.startsWith('en') && 
-          !voice.name.includes('Google') && // Avoid robotic Google voices
-          !voice.localService === false // Prefer local voices
+        const preferredVoice = voices.find(voice => 
+          voice.lang.startsWith('en')
         );
         
-        if (preferredVoices.length > 0) {
-          // Prefer female voices as they're often clearer
-          const femaleVoice = preferredVoices.find(voice => 
-            voice.name.toLowerCase().includes('female') ||
-            voice.name.toLowerCase().includes('samantha') ||
-            voice.name.toLowerCase().includes('karen')
-          );
-          utterance.voice = femaleVoice || preferredVoices[0];
+        if (preferredVoice) {
+          utterance.voice = preferredVoice;
         }
 
-        utterance.onstart = () => {
-          setIsSpeaking(true);
-          setCurrentUtterance(utterance);
-        };
-
+        utterance.onstart = () => setIsSpeaking(true);
         utterance.onend = () => {
           setIsSpeaking(false);
-          setCurrentUtterance(null);
           resolve();
         };
-
-        utterance.onerror = (event) => {
+        utterance.onerror = () => {
           setIsSpeaking(false);
-          setCurrentUtterance(null);
-          reject(new Error(`Speech error: ${event.error}`));
+          reject(new Error('Speech error'));
         };
 
         speechSynth.current.speak(utterance);
@@ -194,35 +152,10 @@ function useSpeechSynthesis() {
       speechSynth.current.cancel();
     }
     setIsSpeaking(false);
-    setCurrentUtterance(null);
   }, []);
 
-  return { speak, stop, isSpeaking, isSupported, currentUtterance };
+  return { speak, stop, isSpeaking, isSupported };
 }
-
-// Function to find section with fallbacks
-const findSection = (sectionId: string): HTMLElement | null => {
-  const directElement = document.getElementById(sectionId);
-  if (directElement) return directElement;
-
-  const dataSection = document.querySelector(`[data-section="${sectionId}"]`) as HTMLElement;
-  if (dataSection) return dataSection;
-
-  const sectionClass = document.querySelector(`.${sectionId}-section`) as HTMLElement;
-  if (sectionClass) return sectionClass;
-
-  const navLink = document.querySelector(`a[href="#${sectionId}"]`) as HTMLAnchorElement;
-  if (navLink) {
-    const targetId = navLink.getAttribute('href')?.replace('#', '');
-    if (targetId) {
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) return targetElement;
-    }
-  }
-
-  console.warn(`Section "${sectionId}" not found`);
-  return null;
-};
 
 export function AITourGuide() {
   const [isOpen, setIsOpen] = useState(false);
@@ -251,51 +184,102 @@ export function AITourGuide() {
     };
   }, [stop]);
 
-  const smoothScrollTo = useCallback(async (elementId: string): Promise<boolean> => {
+  // Helper function to find section
+  const findSection = useCallback((sectionId: string): HTMLElement | null => {
+    // Try direct ID first
+    const element = document.getElementById(sectionId);
+    if (element) return element;
+
+    // For home section, try to find main element or body
+    if (sectionId === 'home') {
+      const mainElement = document.querySelector('main') || 
+                         document.querySelector('body > div') || 
+                         document.body;
+      return mainElement as HTMLElement;
+    }
+
+    // Try data attributes
+    const dataSection = document.querySelector(`[data-section="${sectionId}"]`);
+    if (dataSection) return dataSection as HTMLElement;
+
+    // Try class names
+    const classSection = document.querySelector(`.${sectionId}`);
+    if (classSection) return classSection as HTMLElement;
+
+    // Try navigation links
+    const navLink = document.querySelector(`[href="#${sectionId}"]`);
+    if (navLink) {
+      const href = navLink.getAttribute('href');
+      if (href) {
+        const targetId = href.replace('#', '');
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) return targetElement;
+      }
+    }
+
+    return null;
+  }, []);
+
+  const clearTimeouts = useCallback(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (navigationTimeoutRef.current) clearTimeout(navigationTimeoutRef.current);
+  }, []);
+
+  const smoothScrollTo = useCallback(async (sectionId: string): Promise<boolean> => {
     return new Promise((resolve) => {
-      const element = findSection(elementId);
-      
-      if (!element) {
-        setNavigationError(`Section "${elementId}" not found. Please ensure all sections are properly loaded.`);
-        resolve(false);
-        return;
+      let element: HTMLElement | null = null;
+      let scrollPosition = 0;
+
+      // Special handling for home section
+      if (sectionId === 'home') {
+        scrollPosition = 0;
+      } else {
+        element = findSection(sectionId);
+        
+        if (!element) {
+          setNavigationError(`Section "${sectionId}" not found. Scroll manually and try again.`);
+          resolve(false);
+          return;
+        }
+        
+        const headerHeight = 80;
+        const elementRect = element.getBoundingClientRect();
+        scrollPosition = elementRect.top + window.pageYOffset - headerHeight;
       }
 
       setIsNavigating(true);
       setNavigationError(null);
 
-      const headerHeight = 100;
-      const elementRect = element.getBoundingClientRect();
-      const offsetPosition = elementRect.top + window.pageYOffset - headerHeight;
-
       window.scrollTo({
-        top: offsetPosition,
+        top: scrollPosition,
         behavior: 'smooth'
       });
 
+      // Shorter timeout for faster response
       navigationTimeoutRef.current = setTimeout(() => {
         setIsNavigating(false);
         resolve(true);
-      }, 1500);
+      }, 800);
 
+      // Check if we've reached the position
       const checkScroll = () => {
         const currentPosition = window.pageYOffset;
-        if (Math.abs(currentPosition - offsetPosition) < 50) {
+        if (Math.abs(currentPosition - scrollPosition) < 100) {
           if (navigationTimeoutRef.current) clearTimeout(navigationTimeoutRef.current);
           setIsNavigating(false);
           resolve(true);
         }
       };
 
-      setTimeout(checkScroll, 800);
+      setTimeout(checkScroll, 500);
     });
-  }, []);
+  }, [findSection]);
 
   const speakText = useCallback(async (text: string): Promise<void> => {
     if (!useVoice || !isSupported) {
-      // If voice is disabled, wait for estimated read time
+      // Faster timing for better UX
       const wordCount = text.split(' ').length;
-      const readTime = Math.max(wordCount * 60, 3000); // 60ms per word, minimum 3 seconds
+      const readTime = Math.min(wordCount * 40, 4000); // Faster reading
       return new Promise(resolve => setTimeout(resolve, readTime));
     }
     
@@ -303,9 +287,8 @@ export function AITourGuide() {
       await speak(text);
     } catch (error) {
       console.error('Speech failed:', error);
-      // Fallback to timed reading if speech fails
       const wordCount = text.split(' ').length;
-      const readTime = Math.max(wordCount * 60, 3000);
+      const readTime = Math.min(wordCount * 40, 4000);
       return new Promise(resolve => setTimeout(resolve, readTime));
     }
   }, [speak, useVoice, isSupported]);
@@ -314,53 +297,48 @@ export function AITourGuide() {
     const step = tourSteps[stepIndex];
     if (!step) return;
 
-    // Clear any existing timeouts
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    if (navigationTimeoutRef.current) clearTimeout(navigationTimeoutRef.current);
-
+    clearTimeouts();
     setCurrentStep(stepIndex);
-    stop(); // Stop any ongoing speech
+    stop();
 
     // Navigate to section
     const navigationSuccess = await smoothScrollTo(step.section);
     
     if (!navigationSuccess) {
-      console.warn(`Failed to navigate to ${step.section}`);
+      console.warn(`Continuing tour despite navigation issue: ${step.section}`);
     }
 
-    // Wait for navigation to complete and then speak
+    // Speak description
     await speakText(step.description);
 
-    // Auto-advance to next step only after speech completes
+    // Auto-advance with shorter buffer
     if (isPlaying && stepIndex < tourSteps.length - 1) {
-      // Add a small buffer after speech completes
       timeoutRef.current = setTimeout(() => {
         if (isPlaying) {
           goToStep(stepIndex + 1);
         }
-      }, 1000); // 1 second buffer after speech
+      }, 500);
     } else if (stepIndex === tourSteps.length - 1) {
-      // End of tour
       timeoutRef.current = setTimeout(() => {
         setIsPlaying(false);
         stop();
-      }, 2000);
+      }, 1000);
     }
-  }, [isPlaying, useVoice, speakText, smoothScrollTo, stop]);
+  }, [isPlaying, useVoice, speakText, smoothScrollTo, stop, clearTimeouts]);
 
-  const startTour = async () => {
+  const startTour = useCallback(async () => {
     setIsOpen(true);
     setIsPlaying(true);
     setCurrentStep(0);
     setNavigationError(null);
     await goToStep(0);
-  };
+  }, [goToStep]);
 
-  const togglePlayPause = async () => {
+  const togglePlayPause = useCallback(async () => {
     if (isPlaying) {
       setIsPlaying(false);
       stop();
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      clearTimeouts();
     } else {
       setIsPlaying(true);
       if (currentStep < tourSteps.length - 1) {
@@ -369,38 +347,37 @@ export function AITourGuide() {
         await startTour();
       }
     }
-  };
+  }, [isPlaying, currentStep, stop, clearTimeouts, goToStep, startTour]);
 
-  const nextStep = async () => {
+  const nextStep = useCallback(async () => {
     if (isNavigating || isSpeaking) return;
     
     stop();
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    clearTimeouts();
     if (currentStep < tourSteps.length - 1) {
       await goToStep(currentStep + 1);
     }
-  };
+  }, [currentStep, goToStep, isNavigating, isSpeaking, stop, clearTimeouts]);
 
-  const prevStep = async () => {
+  const prevStep = useCallback(async () => {
     if (isNavigating || isSpeaking) return;
     
     stop();
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    clearTimeouts();
     if (currentStep > 0) {
       await goToStep(currentStep - 1);
     }
-  };
+  }, [currentStep, goToStep, isNavigating, isSpeaking, stop, clearTimeouts]);
 
-  const closeTour = () => {
+  const closeTour = useCallback(() => {
     setIsOpen(false);
     setIsPlaying(false);
     stop();
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    if (navigationTimeoutRef.current) clearTimeout(navigationTimeoutRef.current);
+    clearTimeouts();
     setNavigationError(null);
-  };
+  }, [stop, clearTimeouts]);
 
-  const toggleVoice = () => {
+  const toggleVoice = useCallback(() => {
     const newUseVoice = !useVoice;
     setUseVoice(newUseVoice);
     
@@ -410,15 +387,15 @@ export function AITourGuide() {
     } else {
       stop();
     }
-  };
+  }, [useVoice, isPlaying, isSpeaking, currentStep, speakText, stop]);
 
-  const jumpToStep = async (stepIndex: number) => {
+  const jumpToStep = useCallback(async (stepIndex: number) => {
     if (isNavigating || isSpeaking) return;
     
     stop();
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    clearTimeouts();
     await goToStep(stepIndex);
-  };
+  }, [goToStep, isNavigating, isSpeaking, stop, clearTimeouts]);
 
   const currentStepData = tourSteps[currentStep];
 
@@ -427,16 +404,16 @@ export function AITourGuide() {
       {/* Tour Trigger Button */}
       <motion.button
         onClick={startTour}
-        className="fixed bottom-6 left-6 z-40 w-16 h-16 bg-gradient-to-r from-primary to-secondary text-primary-foreground rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center group border-2 border-white/20"
+        className="fixed bottom-6 left-6 z-40 w-14 h-14 bg-gradient-to-r from-emerald-600 to-blue-600 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center group border-2 border-white/20"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        title="Start AI Tour Guide"
+        title="Start Portfolio Tour"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 200, damping: 15 }}
       >
-        <Bot className="w-7 h-7" />
-        <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
+        <BarChart3 className="w-6 h-6" />
+        <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
       </motion.button>
 
       {/* Tour Modal */}
@@ -446,35 +423,34 @@ export function AITourGuide() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
             onClick={closeTour}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="bg-card border border-border/50 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col"
+              className="bg-white border border-slate-200 rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-hidden flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div className="bg-gradient-to-r from-primary to-secondary p-6 text-primary-foreground flex-shrink-0">
+              <div className="bg-gradient-to-r from-emerald-600 to-blue-600 p-5 text-white flex-shrink-0">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3">
                     <div className="relative">
-                      <Bot className="w-8 h-8" />
+                      <Briefcase className="w-7 h-7" />
                       {isSpeaking && (
                         <motion.div
                           animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                          className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white"
+                          transition={{ duration: 1, repeat: Infinity }}
+                          className="absolute -top-1 -right-1 w-2 h-2 bg-green-400 rounded-full border border-white"
                         />
                       )}
                     </div>
                     <div>
-                      <h3 className="font-bold text-xl">Portfolio Tour Guide</h3>
-                      <p className="text-primary-foreground/80 text-sm">
-                        {currentStep + 1} of {tourSteps.length} • {currentStepData.title.split(' ')[0]}
-                        {isSpeaking && ' • Speaking...'}
+                      <h3 className="font-bold text-lg font-sans">Portfolio Tour</h3>
+                      <p className="text-white/80 text-xs font-sans">
+                        Step {currentStep + 1}/{tourSteps.length} • Finance Guide
                       </p>
                     </div>
                   </div>
@@ -482,35 +458,35 @@ export function AITourGuide() {
                     variant="ghost"
                     size="icon"
                     onClick={closeTour}
-                    className="text-primary-foreground hover:bg-primary-foreground/20 rounded-xl"
+                    className="text-white hover:bg-white/20 rounded-xl h-8 w-8"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
 
               {/* Progress Bar */}
-              <div className="w-full bg-muted/30 h-2 flex-shrink-0">
+              <div className="w-full bg-slate-100 h-1.5 flex-shrink-0">
                 <motion.div
-                  className="h-2 bg-gradient-to-r from-primary to-secondary rounded-r-full"
+                  className="h-1.5 bg-gradient-to-r from-emerald-600 to-blue-600 rounded-r-full"
                   initial={{ width: '0%' }}
                   animate={{ width: `${((currentStep + 1) / tourSteps.length) * 100}%` }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.3 }}
                 />
               </div>
 
               {/* Content */}
-              <div className="p-6 flex-1 overflow-y-auto">
+              <div className="p-5 flex-1 overflow-y-auto">
                 <motion.div
                   key={currentStep}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <h4 className="text-xl font-bold mb-3 text-foreground">
+                  <h4 className="text-lg font-bold mb-2 text-slate-900 font-sans">
                     {currentStepData.title}
                   </h4>
-                  <p className="text-muted-foreground leading-relaxed text-lg">
+                  <p className="text-slate-600 leading-relaxed text-base font-sans">
                     {currentStepData.description}
                   </p>
                 </motion.div>
@@ -521,29 +497,14 @@ export function AITourGuide() {
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="flex items-center gap-2 text-sm text-blue-600 bg-blue-50 px-3 py-2 rounded-lg"
+                      className="flex items-center gap-2 text-sm text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg font-sans"
                     >
                       <motion.div
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full"
+                        transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                        className="w-3 h-3 border-2 border-blue-600 border-t-transparent rounded-full"
                       />
-                      Navigating to {currentStepData.title.split(' ')[0]}...
-                    </motion.div>
-                  )}
-
-                  {isSpeaking && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="flex items-center gap-2 text-sm text-green-600 bg-green-50 px-3 py-2 rounded-lg"
-                    >
-                      <motion.div
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 1, repeat: Infinity }}
-                        className="w-2 h-2 bg-green-600 rounded-full"
-                      />
-                      Speaking... Please wait
+                      Navigating...
                     </motion.div>
                   )}
 
@@ -551,16 +512,16 @@ export function AITourGuide() {
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="text-sm text-amber-600 bg-amber-50 px-3 py-2 rounded-lg border border-amber-200"
+                      className="text-sm text-amber-600 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200 font-sans"
                     >
-                      ⚠️ {navigationError}
+                      ⚠️ Scroll to sections manually if needed
                     </motion.div>
                   )}
                 </div>
               </div>
 
               {/* Controls */}
-              <div className="p-6 border-t border-border/50 flex-shrink-0">
+              <div className="p-5 border-t border-slate-200 flex-shrink-0">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
                     <Button
@@ -568,18 +529,18 @@ export function AITourGuide() {
                       size="sm"
                       onClick={prevStep}
                       disabled={currentStep === 0 || isNavigating || isSpeaking}
-                      className="rounded-lg"
+                      className="rounded-lg font-sans border-slate-300 hover:border-slate-400 h-9 px-3"
                     >
                       <ChevronLeft className="w-4 h-4 mr-1" />
-                      Previous
+                      Prev
                     </Button>
 
                     <Button
-                      variant={isPlaying ? "outline" : "default"}
+                      variant="default"
                       size="sm"
                       onClick={togglePlayPause}
                       disabled={isNavigating || isSpeaking}
-                      className="rounded-lg"
+                      className="rounded-lg font-sans bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 h-9 px-4"
                     >
                       {isPlaying ? (
                         <>
@@ -589,7 +550,7 @@ export function AITourGuide() {
                       ) : (
                         <>
                           <Play className="w-4 h-4 mr-1" />
-                          Play
+                          {currentStep === 0 ? 'Start' : 'Resume'}
                         </>
                       )}
                     </Button>
@@ -599,7 +560,7 @@ export function AITourGuide() {
                       size="sm"
                       onClick={nextStep}
                       disabled={currentStep === tourSteps.length - 1 || isNavigating || isSpeaking}
-                      className="rounded-lg"
+                      className="rounded-lg font-sans border-slate-300 hover:border-slate-400 h-9 px-3"
                     >
                       Next
                       <ChevronRight className="w-4 h-4 ml-1" />
@@ -611,8 +572,8 @@ export function AITourGuide() {
                     size="sm"
                     onClick={toggleVoice}
                     disabled={!isSupported || isNavigating || isSpeaking}
-                    className="rounded-lg"
-                    title={useVoice ? "Turn off voice" : "Turn on voice narration"}
+                    className="rounded-lg font-sans border-slate-300 h-9 w-9 p-0"
+                    title={useVoice ? "Turn off voice" : "Turn on voice"}
                   >
                     {useVoice ? (
                       <Volume2 className="w-4 h-4" />
@@ -629,10 +590,10 @@ export function AITourGuide() {
                       key={step.id}
                       onClick={() => jumpToStep(index)}
                       disabled={isNavigating || isSpeaking}
-                      className={`flex-shrink-0 px-3 py-1 rounded-lg text-xs font-medium transition-all duration-200 min-w-[40px] text-center ${
+                      className={`flex-shrink-0 px-2.5 py-1 rounded-lg text-xs font-medium transition-all duration-150 min-w-[32px] text-center font-sans ${
                         index === currentStep
-                          ? 'bg-primary text-primary-foreground shadow-md'
-                          : 'bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground'
+                          ? 'bg-gradient-to-r from-emerald-600 to-blue-600 text-white shadow'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
                       } ${(isNavigating || isSpeaking) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                       title={step.title}
                     >
