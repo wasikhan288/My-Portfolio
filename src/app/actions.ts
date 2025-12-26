@@ -2,7 +2,6 @@
 
 import {z} from 'zod';
 import {askChatbot} from '@/ai/flows/portfolio-chat';
-import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 
