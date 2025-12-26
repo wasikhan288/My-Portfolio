@@ -3,205 +3,411 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Eye, Send, Download, BookOpen, Code, School } from 'lucide-react';
-import { useTypewriter, Cursor } from 'react-simple-typewriter';
+import { Mail, FileText, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export function Hero() {
-  const [text] = useTypewriter({
-    words: ['Computer Science Student', 'Tech Enthusiast', 'Web Developer', 'Problem Solver'],
-    loop: true,
-    delaySpeed: 3000,
-    typeSpeed: 80,
-    deleteSpeed: 50,
-  });
-
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  const imageVariants = {
+    hidden: { scale: 0.95, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
+
+  const floatAnimation = {
+    y: [0, -10, 0],
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  };
+
+  const pulseAnimation = {
+    scale: [1, 1.05, 1],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  };
+
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
-    >
-      {/* Academic-inspired Background */}
-      <div className="absolute inset-0 z-0">
-        {/* Subtle Academic Pattern */}
-        <div 
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `linear-gradient(#000 1px, transparent 1px),
-                             linear-gradient(90deg, #000 1px, transparent 1px)`,
-            backgroundSize: '60px 60px',
+    <section className="relative min-h-screen flex items-center justify-center bg-background overflow-hidden py-20">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <motion.div 
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
+          animate={{
+            x: [0, 20, 0],
+            y: [0, -20, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
           }}
         />
-        
-        {/* Geometric Accents */}
-        <div className="absolute top-1/4 right-1/4 w-48 h-48 border border-primary/5 rounded-lg rotate-45"></div>
-        <div className="absolute bottom-1/3 left-1/4 w-32 h-32 border border-secondary/5 rounded-full"></div>
+        <motion.div 
+          className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"
+          animate={{
+            x: [0, -15, 0],
+            y: [0, 15, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
       </div>
 
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
-          <div className={`space-y-6 transition-all duration-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            {/* Student Identity */}
-            <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/10 rounded-full text-sm text-primary font-medium">
-                <School className="w-4 h-4" />
-                <span>2nd Year B.Tech CSE Student</span>
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div 
+          className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-center"
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          variants={containerVariants}
+        >
+          
+          {/* Left Column - Content */}
+          <div className="lg:col-span-7 space-y-12">
+            
+            {/* Header with minimal accent */}
+            <motion.div className="space-y-4" variants={itemVariants}>
+              <div className="flex items-center gap-4 mb-2">
+                <motion.div 
+                  className="w-16 h-px bg-primary/20"
+                  initial={{ width: 0 }}
+                  animate={{ width: "4rem" }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                />
+                <motion.span 
+                  className="text-sm font-medium text-primary tracking-wider uppercase"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
+                  Finance Professional
+                </motion.span>
               </div>
-
-              <h1 className="text-4xl lg:text-5xl font-bold tracking-tight">
-                <span className="block text-foreground">Hi, I'm</span>
-                <span className="block text-primary mt-2">Tauqeer Khan</span>
-              </h1>
               
-              <div className="flex items-center gap-3 text-lg lg:text-xl text-muted-foreground font-light">
-                <span>Passionate</span>
-                <span className="text-primary font-medium min-h-[1.5em]">
-                  {text}
-                  <Cursor cursorColor="hsl(var(--primary))" cursorStyle="|" />
-                </span>
+              <div className="space-y-3">
+                <motion.h1 
+                  className="text-5xl lg:text-6xl font-light tracking-tight leading-[1.1]"
+                  variants={itemVariants}
+                >
+                  <span className="block text-foreground">Wasi</span>
+                  <span className="block text-foreground font-normal mt-1">Ahmed Khan</span>
+                </motion.h1>
+                
+                <motion.div className="pt-2" variants={itemVariants}>
+                  <p className="text-xl text-muted-foreground font-light">
+                    Dual Degree Graduate • Hult International Business School
+                  </p>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Student Introduction */}
-            <p className="text-lg leading-relaxed text-muted-foreground max-w-2xl">
-              Currently pursuing my Bachelor's in Computer Science while actively building 
-              practical skills in web development. Passionate about learning new technologies, 
-              solving complex problems, and creating innovative solutions through code.
-            </p>
+            {/* Credentials in clean layout */}
+            <motion.div className="space-y-8" variants={itemVariants}>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <motion.div 
+                  className="px-5 py-3 bg-primary/5 border border-primary/10 rounded-lg hover:bg-primary/10 transition-colors"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="text-base font-medium text-primary">Master of International Business</span>
+                </motion.div>
+                <motion.div 
+                  className="px-5 py-3 bg-primary/5 border border-primary/10 rounded-lg hover:bg-primary/10 transition-colors"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="text-base font-medium text-primary">Master of Finance</span>
+                </motion.div>
+              </div>
 
-            {/* Academic Focus */}
-            <div className="space-y-4">
-              <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
-                Currently Learning & Building With
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {['React', 'Next.js', 'JavaScript', 'Python', 'Firebase', 'Tailwind', 'Node.js'].map((tech) => (
-                  <span 
-                    key={tech}
-                    className="px-3 py-2 bg-primary/5 border border-primary/10 rounded-lg text-sm font-medium text-foreground hover:bg-primary/10 transition-colors duration-200"
+              {/* Professional Statement */}
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <motion.p 
+                    className="text-lg leading-relaxed text-foreground/90 font-light tracking-wide"
+                    variants={itemVariants}
                   >
-                    {tech}
-                  </span>
+                    I am graduating from Hult International School with a dual degree in 
+                    Master's of International Business and Master's of Finance.
+                  </motion.p>
+                  
+                  <motion.p 
+                    className="text-lg leading-relaxed text-foreground/90 font-light tracking-wide"
+                    variants={itemVariants}
+                  >
+                    Welcome to my professional portfolio. This platform showcases my 
+                    expertise, professional journey, and notable achievements in 
+                    international business and finance.
+                  </motion.p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Specializations - Clean grid */}
+            <motion.div className="space-y-6" variants={itemVariants}>
+              <motion.div 
+                className="w-12 h-px bg-primary/20"
+                initial={{ width: 0 }}
+                animate={{ width: "3rem" }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+              />
+              
+              <div className="grid grid-cols-2 gap-5">
+                {[
+                  { title: 'Financial Analysis', desc: 'Quantitative modeling & valuation' },
+                  { title: 'Global Strategy', desc: 'International market expansion' },
+                  { title: 'Risk Management', desc: 'Portfolio & operational risk' },
+                  { title: 'Investment Strategy', desc: 'Asset allocation & M&A' }
+                ].map((item, index) => (
+                  <motion.div 
+                    key={index}
+                    className="p-5 border border-border/50 rounded-xl hover:border-primary/20 transition-colors duration-300"
+                    variants={itemVariants}
+                    whileHover={{ 
+                      y: -4,
+                      boxShadow: "0 10px 30px -10px rgba(120,119,198,0.1)"
+                    }}
+                  >
+                    <h4 className="font-medium text-foreground mb-2 text-base">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Student CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button
-                size="lg"
-                asChild
-                className="font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                <Link href="#projects">
-                  <Code className="mr-3 h-5 w-5" /> 
-                  View Projects
-                </Link>
-              </Button>
+            {/* Action Section */}
+            <motion.div className="pt-8 space-y-6" variants={itemVariants}>
+              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                <div className="flex gap-6">
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      size="lg"
+                      className="px-8 font-medium bg-foreground text-background hover:bg-foreground/90 rounded-lg h-12"
+                      asChild
+                    >
+                      <Link href="#contact" className="flex items-center gap-2">
+                        <Mail className="w-4 h-4" />
+                        <span>Contact</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </Link>
+                    </Button>
+                  </motion.div>
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="px-8 font-medium border-border text-foreground hover:bg-foreground/5 rounded-lg h-12"
+                    >
+                      <FileText className="w-4 h-4 mr-2" />
+                      <span>CV</span>
+                    </Button>
+                  </motion.div>
+                </div>
+              </div>
               
-              <Button 
-                size="lg" 
-                variant="outline" 
-                asChild 
-                className="font-semibold border-2 hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+              <motion.div 
+                className="flex items-center gap-6 text-sm text-muted-foreground"
+                variants={itemVariants}
               >
-                <Link href="#contact">
-                  <Send className="mr-3 h-5 w-5" /> 
-                  Get In Touch
-                </Link>
-              </Button>
-              
-              <Button 
-                size="lg" 
-                variant="ghost" 
-                className="font-semibold text-foreground hover:bg-primary/5 transition-all duration-300"
-              >
-                <Download className="mr-3 h-5 w-5" />
-                Resume
-              </Button>
-            </div>
+                <div className="flex items-center gap-2">
+                  <motion.div 
+                    className="w-2 h-2 rounded-full bg-primary/30"
+                    animate={pulseAnimation}
+                  />
+                  <span>Available for opportunities</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <motion.div 
+                    className="w-2 h-2 rounded-full bg-primary/30"
+                    animate={pulseAnimation}
+                    transition={{ delay: 0.5 }}
+                  />
+                  <span>Based internationally</span>
+                </div>
+              </motion.div>
+            </motion.div>
+
           </div>
 
-          {/* Student Image Section */}
-          <div className={`relative transition-all duration-700 delay-300 ${
-            isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-          }`}>
-            <div className="relative">
-              {/* Main Image Container */}
-              <div className="relative w-full max-w-md mx-auto">
-                <div className="aspect-square rounded-2xl overflow-hidden shadow-xl border border-border/50 bg-gradient-to-br from-primary/5 to-secondary/5">
+          {/* Right Column - Profile */}
+          <div className="lg:col-span-5 relative">
+            
+            {/* Profile Container */}
+            <div className="space-y-12">
+              
+              {/* Image Section */}
+              <motion.div 
+                className="relative"
+                variants={imageVariants}
+                animate={isVisible ? "visible" : "hidden"}
+              >
+                <motion.div 
+                  className="aspect-[3/4] relative overflow-hidden rounded-xl shadow-lg"
+                  whileHover={{ scale: 1.01 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <Image
-                    unoptimized
                     src="https://raw.githubusercontent.com/faskey37/My-Portfolio/main/2.jpeg"
-                    alt="Tauqeer Khan - B.Tech Computer Science Student"
-                    width={50}
-                    height={50}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    alt="Wasi Ahmed Khan - Finance Professional"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 40vw"
                     priority
                   />
-                </div>
-                
-                {/* Academic Elements */}
-                <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-primary/10 rounded-2xl -z-10 flex items-center justify-center">
-                  <BookOpen className="w-8 h-8 text-primary/40" />
-                </div>
-                
-                <div className="absolute -top-6 -right-6 w-16 h-16 bg-secondary/10 rounded-full -z-10 flex items-center justify-center">
-                  <Code className="w-6 h-6 text-secondary/40" />
-                </div>
-              </div>
+                  
+                  {/* Minimal overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/10 via-transparent to-transparent"></div>
+                </motion.div>
 
-              {/* Current Status */}
-              <div className="absolute -bottom-4 right-8 bg-background border border-border shadow-lg rounded-full px-4 py-3">
-                <div className="text-center">
-                  <div className="text-sm font-bold text-primary">2nd Year</div>
-                  <div className="text-xs text-muted-foreground">B.Tech CSE</div>
-                </div>
-              </div>
+                {/* Credential - subtle positioning */}
+                <motion.div 
+                  className="absolute -bottom-4 left-1/2 transform -translate-x-1/2"
+                  animate={floatAnimation}
+                >
+                  <div className="bg-background border border-border px-6 py-3 rounded-lg shadow-lg">
+                    <div className="text-center">
+                      <div className="text-base font-medium text-foreground">Hult Graduate</div>
+                      <div className="text-xs text-muted-foreground mt-1">Dual Degree</div>
+                    </div>
+                  </div>
+                </motion.div>
 
-              {/* Learning Focus */}
-              <div className="absolute -top-4 left-4 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 backdrop-blur-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-blue-700">Active Learner</span>
+                {/* Floating decorative elements */}
+                <motion.div 
+                  className="absolute -top-3 -right-3 w-6 h-6 rounded-full bg-primary/20"
+                  animate={floatAnimation}
+                  transition={{ delay: 0.2 }}
+                />
+                <motion.div 
+                  className="absolute -bottom-3 -left-3 w-4 h-4 rounded-full bg-secondary/20"
+                  animate={floatAnimation}
+                  transition={{ delay: 0.4 }}
+                />
+              </motion.div>
+
+              {/* Highlights Section */}
+              <motion.div className="space-y-8" variants={itemVariants}>
+                
+                {/* Summary */}
+                <motion.div 
+                  className="space-y-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                    Academic Profile
+                  </h3>
+                  <p className="text-foreground/90 leading-relaxed">
+                    Specialized education combining international business strategy 
+                    with advanced financial expertise, preparing for global leadership roles.
+                  </p>
+                </motion.div>
+
+                {/* Attributes Grid */}
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { label: 'Strategic Insight', value: 'Global' },
+                    { label: 'Analytical Rigor', value: 'Quantitative' },
+                    { label: 'Financial Expertise', value: 'Advanced' },
+                    { label: 'Professional Scope', value: 'International' }
+                  ].map((attr, index) => (
+                    <motion.div 
+                      key={index}
+                      className="p-4 border border-border/50 rounded-lg hover:border-primary/20 transition-colors hover:bg-primary/5"
+                      variants={itemVariants}
+                      whileHover={{ scale: 1.03 }}
+                    >
+                      <div className="text-sm text-muted-foreground mb-2">{attr.label}</div>
+                      <div className="text-base font-medium text-foreground">{attr.value}</div>
+                    </motion.div>
+                  ))}
                 </div>
-              </div>
+              </motion.div>
+
             </div>
 
-            {/* Quick Stats */}
-            <div className="flex justify-center gap-8 mt-8 text-center">
-              <div>
-                <div className="text-2xl font-bold text-primary">10+</div>
-                <div className="text-sm text-muted-foreground">Projects</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-primary">5+</div>
-                <div className="text-sm text-muted-foreground">Technologies</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-primary">100%</div>
-                <div className="text-sm text-muted-foreground">Learning</div>
-              </div>
-            </div>
           </div>
-        </div>
 
-        {/* Academic Scroll Indicator */}
-        <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-xs text-muted-foreground font-medium tracking-wider">EXPLORE MY JOURNEY</span>
-            <div className="w-px h-12 bg-gradient-to-b from-primary to-transparent"></div>
+        </motion.div>
+
+        {/* Animated scroll indicator */}
+        <motion.div 
+          className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+        >
+          <div className="flex flex-col items-center">
+            <motion.div 
+              className="w-px h-12 bg-gradient-to-b from-primary/40 via-primary/20 to-transparent"
+              animate={{
+                height: ["48px", "56px", "48px"],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div 
+              className="text-xs text-muted-foreground mt-3 tracking-[0.2em]"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              SCROLL
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );

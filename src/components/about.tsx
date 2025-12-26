@@ -2,65 +2,52 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Code2, Palette, BookOpen, Coffee, GraduationCap, Lightbulb } from "lucide-react";
+import { Briefcase, TrendingUp, Globe, Award, BookOpen, Lightbulb, Users, BarChart3 } from "lucide-react";
 
 export function About() {
   const stats = [
-    { number: "2nd", label: "Year B.Tech" },
-    { number: "15+", label: "Projects Built" },
-    { number: "6+", label: "Tech Skills" },
-    { number: "100%", label: "Curious" }
+    { number: "25%", label: "Process Optimization" },
+    { number: "20%", label: "Accuracy Improvement" },
+    { number: "3+", label: "Years Training" },
+    { number: "Dual", label: "Degree Program" }
+  ];
+
+  const skills = [
+    { icon: BarChart3, label: "Financial Modeling" },
+    { icon: TrendingUp, label: "Risk Management" },
+    { icon: Globe, label: "Global Strategy" },
+    { icon: Briefcase, label: "Corporate Finance" },
+    { icon: Lightbulb, label: "Analytical Problem-Solving" },
+    { icon: Users, label: "Business Operations" }
   ];
 
   const interests = [
-    { icon: Code2, label: "Web Development" },
-    { icon: Palette, label: "UI/UX Design" },
-    { icon: BookOpen, label: "Continuous Learning" },
-    { icon: Lightbulb, label: "Problem Solving" }
-  ];
-
-  const currentLearning = [
-    "React & Next.js",
-    "TypeScript",
-    "Node.js",
-    "Firebase",
-    "Tailwind CSS",
-    "Python"
+    "Indian Classical Singing",
+    "Behavioral Finance",
+    "Market Research",
+    "Financial Analysis",
+    "Strategic Planning",
+    "Investment Strategy"
   ];
 
   return (
     <section id="about" className="py-32 bg-gradient-to-b from-background to-card/30 relative overflow-hidden">
-      {/* Animated Background */}
+      {/* Professional Background Elements */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,hsl(var(--primary)/0.03),transparent)]"></div>
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary/20 to-transparent"></div>
+        {/* Financial Grid Pattern */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px),
+                           linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px)`,
+          backgroundSize: '80px 80px',
+        }} />
         
-        {/* Floating Particles */}
-        {Array.from({ length: 15 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary/20 rounded-full"
-            initial={{ 
-              x: Math.random() * 100,
-              y: Math.random() * 100,
-              opacity: 0 
-            }}
-            animate={{ 
-              y: [null, -100, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: Math.random() * 3 + 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
+        {/* Decorative Financial Elements */}
+        <div className="absolute top-20 right-20 w-64 h-64 border border-primary/10 rounded-full opacity-5"></div>
+        <div className="absolute bottom-40 left-20 w-48 h-48 border border-secondary/10 rounded-lg rotate-45 opacity-5"></div>
+        
+        {/* Accent Lines */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary/10 to-transparent"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -72,10 +59,16 @@ export function About() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold font-headline mb-4">
-            About <span className="text-gradient">Me</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
+            <Award className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">PROFESSIONAL PROFILE</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-light mb-4">
+            About <span className="font-normal text-primary">Wasi Ahmed Khan</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Finance & Business Professional | Dual Degree Candidate at Hult International Business School
+          </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -87,30 +80,35 @@ export function About() {
             viewport={{ once: true }}
             className="relative w-full max-w-md mx-auto"
           >
-            {/* Gradient Border */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-primary to-secondary rounded-2xl blur-lg opacity-30 animate-pulse"></div>
+            {/* Professional Frame */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur-xl opacity-20"></div>
             
             {/* Main Image Container */}
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-border/50 bg-card">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-border/50 bg-white">
               <Image 
-                unoptimized 
-                src="https://raw.githubusercontent.com/faskey37/My-Portfolio/main/1.jpg"
-                alt="Tauqeer Khan - 2nd Year B.Tech Computer Science Student"
+                src="https://raw.githubusercontent.com/faskey37/My-Portfolio/main/2.jpeg"
+                alt="Wasi Ahmed Khan - Finance & Business Graduate"
                 width={500}
                 height={500}
-                className="w-full h-auto transition-transform duration-500 hover:scale-105"
+                className="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
               />
               
-              {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+              {/* Professional Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/10 via-transparent to-transparent"></div>
             </div>
 
-            {/* Student Badges */}
-            <div className="absolute -bottom-4 -right-4 bg-background border border-primary/20 rounded-full p-3 shadow-lg">
-              <GraduationCap className="w-6 h-6 text-primary" />
+            {/* Degree Badges */}
+            <div className="absolute -bottom-4 -right-4 bg-background border border-primary/20 rounded-lg p-4 shadow-lg">
+              <div className="text-center">
+                <Globe className="w-5 h-5 text-primary mx-auto mb-1" />
+                <div className="text-xs font-medium text-primary">Hult Graduate</div>
+              </div>
             </div>
-            <div className="absolute -top-4 -left-4 bg-background border border-secondary/20 rounded-full p-3 shadow-lg">
-              <BookOpen className="w-6 h-6 text-secondary" />
+            <div className="absolute -top-4 -left-4 bg-background border border-secondary/20 rounded-lg p-4 shadow-lg">
+              <div className="text-center">
+                <TrendingUp className="w-5 h-5 text-secondary mx-auto mb-1" />
+                <div className="text-xs font-medium text-secondary">Dual Degree</div>
+              </div>
             </div>
           </motion.div>
 
@@ -126,35 +124,30 @@ export function About() {
             <div className="space-y-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
-                  2nd Year B.Tech CSE
+                  Banking & Financial Services Graduate
                 </div>
                 <div className="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-sm font-medium">
-                  Aspiring Developer
+                  Master's Candidate
                 </div>
               </div>
 
-              <h3 className="text-3xl sm:text-4xl font-bold font-headline leading-tight">
-                Crafting Digital Experiences Through{" "}
-                <span className="text-gradient">Code & Creativity</span>
-              </h3>
-              
-              <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
+              <div className="space-y-6 text-lg text-foreground/90 leading-relaxed">
                 <p>
-                  My journey into technology began in 8th grade, sparked by curiosity about how 
-                  websites and applications work. Now as a Computer Science student, I'm turning 
-                  that curiosity into practical skills through hands-on projects and continuous learning.
+                  <span className="font-semibold text-primary">Hello! I am Wasi Ahmed Khan.</span> I have a strong foundation 
+                  in finance, risk management and analytics from my bachelor's degree in Banking & Financial Services.
                 </p>
                 
                 <p>
-                  I'm passionate about building <span className="text-primary font-semibold">modern web applications</span> 
-                  {" "}that combine clean design with robust functionality. From classroom concepts to 
-                  personal projects, I enjoy the process of transforming ideas into working digital solutions.
+                  As an intern at <span className="font-medium">Bank of Baroda</span>, I optimized the credit appraisal process by 
+                  <span className="font-semibold text-primary"> 25%</span> and researched the Retail Credit Function. As a Management Trainee at 
+                  <span className="font-medium"> EuroKids</span>, I enhanced financial operations, improving record accuracy by 
+                  <span className="font-semibold text-primary"> 20%</span>.
                 </p>
 
                 <p>
-                  When I'm not studying or coding, you'll find me exploring new technologies, 
-                  contributing to open-source, or collaborating with fellow students on innovative 
-                  projects that push my boundaries.
+                  Now completing my <span className="font-semibold">Master's in International Business at Hult</span> and preparing 
+                  for a <span className="font-semibold">Master's in Finance</span>, I'm eager to apply my financial modeling and 
+                  problem-solving skills in capital markets, risk management, and Corporate Finance.
                 </p>
               </div>
             </div>
@@ -168,13 +161,13 @@ export function About() {
               className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6"
             >
               {stats.map((stat, index) => (
-                <div key={stat.label} className="text-center">
+                <div key={stat.label} className="text-center p-4 border border-border/50 rounded-xl hover:border-primary/30 transition-colors">
                   <motion.div
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="text-2xl sm:text-3xl font-bold text-gradient mb-2"
+                    className="text-2xl sm:text-3xl font-bold text-primary mb-2"
                   >
                     {stat.number}
                   </motion.div>
@@ -185,7 +178,7 @@ export function About() {
               ))}
             </motion.div>
 
-            {/* Currently Learning */}
+            {/* Core Skills */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -194,22 +187,27 @@ export function About() {
               className="space-y-4"
             >
               <h4 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-primary" />
-                Currently Mastering
+                <Briefcase className="w-5 h-5 text-primary" />
+                Core Competencies
               </h4>
               <div className="flex flex-wrap gap-3">
-                {currentLearning.map((tech, index) => (
-                  <motion.span
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="px-3 py-2 bg-muted/50 border border-border rounded-lg text-sm font-medium text-foreground hover:bg-primary/5 transition-colors"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
+                {skills.map((skill, index) => {
+                  const Icon = skill.icon;
+                  return (
+                    <motion.div
+                      key={skill.label}
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      whileHover={{ scale: 1.05 }}
+                      className="flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/10 rounded-lg text-sm font-medium text-foreground hover:bg-primary/10 transition-colors"
+                    >
+                      <Icon className="w-4 h-4 text-primary" />
+                      {skill.label}
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
 
@@ -219,43 +217,58 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
               viewport={{ once: true }}
-              className="flex flex-wrap gap-4 pt-4"
+              className="space-y-4"
             >
-              {interests.map((interest, index) => {
-                const Icon = interest.icon;
-                return (
-                  <motion.div
-                    key={interest.label}
+              <h4 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                <Lightbulb className="w-5 h-5 text-primary" />
+                Interests & Specializations
+              </h4>
+              <div className="flex flex-wrap gap-3">
+                {interests.map((interest, index) => (
+                  <motion.span
+                    key={interest}
                     initial={{ opacity: 0, scale: 0 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    whileHover={{ scale: 1.05 }}
-                    className="flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/10 rounded-full text-sm font-medium text-foreground transition-colors hover:bg-primary/10"
+                    className="px-3 py-2 bg-muted/50 border border-border rounded-lg text-sm font-medium text-foreground hover:bg-primary/5 transition-colors"
                   >
-                    <Icon className="w-4 h-4 text-primary" />
-                    {interest.label}
-                  </motion.div>
-                );
-              })}
+                    {interest}
+                  </motion.span>
+                ))}
+              </div>
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Bottom Quote */}
+        {/* Personal Branding Statement */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mt-20 max-w-2xl mx-auto"
+          className="mt-20 max-w-4xl mx-auto bg-gradient-to-r from-primary/5 to-secondary/5 border border-primary/10 rounded-2xl p-8"
         >
-          <blockquote className="text-xl italic text-muted-foreground border-l-4 border-primary pl-6 py-2">
-            "The beautiful thing about learning is that no one can take it away from you."
-          </blockquote>
-          <cite className="text-sm text-muted-foreground/70 mt-2 block">
-            - B.B. King
-          </cite>
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-primary/10 rounded-lg">
+              <BookOpen className="w-6 h-6 text-primary" />
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-2xl font-semibold text-foreground">Personal Branding Statement</h3>
+              <p className="text-lg text-foreground/90 leading-relaxed">
+                I am an aspiring financial analyst driven by a strong passion for understanding markets 
+                and creating sustainable financial strategies. With a broad foundation in finance and 
+                business, I aim to deliver ethical, data-driven insights that support sound decision-making.
+              </p>
+              <p className="text-lg text-foreground/90 leading-relaxed">
+                Guided by honesty, integrity, and grit, I bring attention to detail, empathy, and creativity 
+                to every analysis. While I continue to strengthen my time management and communication 
+                skills, I embrace feedback as a tool for growth. My goal is to contribute meaningfully in 
+                Equity Research, Corporate Finance, Risk Management, or Financial Planning & Analysis, 
+                helping clients achieve long-term financial success.
+              </p>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
