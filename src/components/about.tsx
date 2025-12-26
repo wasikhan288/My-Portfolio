@@ -86,7 +86,7 @@ export function About() {
             {/* Main Image Container */}
             <div className="relative rounded-2xl overflow-hidden shadow-xl border border-border/50 bg-white">
               <Image 
-                src="https://raw.githubusercontent.com/faskey37/My-Portfolio/main/2.jpeg"
+                src="https://raw.githubusercontent.com/wasikhan288/My-Portfolio/main/about.png"
                 alt="Wasi Ahmed Khan - Finance & Business Graduate"
                 width={500}
                 height={500}
